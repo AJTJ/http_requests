@@ -13,20 +13,21 @@ const getAxios = (url, postUrl) => {
       console.log("firstResponse", response.data);
       const firstResponseEdited = { ...response.data, userId: 3 };
       console.log("firstResponseEdited", firstResponseEdited);
+      return firstResponseEdited;
     })
     .then(firstResponseEdited => {
-      console.log("data in second call", firstResponseEdited);
-      // axios({
-      //   method: "post",
-      //   url: postUrl,
-      //   data: { id: 202, car: "fast", ...firstResponseEdited }
-      // })
-      //   .then(response => {
-      //     console.log("secondResponseAfterPost", response.data);
-      //   })
-      //   .catch(error => {
-      //     console.log(error);
-      //   });
+      console.log("second call Passed", firstResponseEdited);
+      axios({
+        method: "post",
+        url: postUrl,
+        data: firstResponseEdited
+      })
+        .then(response => {
+          console.log("secondResponseAfterPost", response.data);
+        })
+        .catch(error => {
+          console.log(error);
+        });
     });
 };
 
