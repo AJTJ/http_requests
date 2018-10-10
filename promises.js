@@ -6,7 +6,7 @@ const url = "https://jsonplaceholder.typicode.com/todos/1";
 const postUrl = "https://jsonplaceholder.typicode.com/posts";
 
 //Axios method
-const getAxios = (url, postUrl) => {
+const getAxios = (url, outUrl) => {
   axios
     .get(url)
     .then(response => {
@@ -18,15 +18,15 @@ const getAxios = (url, postUrl) => {
     .then(firstResponseEdited => {
       console.log("second call Passed", firstResponseEdited);
       axios({
-        method: "post",
-        url: postUrl,
-        data: firstResponseEdited
+        method: "POST",
+        url: outUrl,
+        data: JSON.stringify(firstResponseEdited)
       })
         .then(response => {
           console.log("secondResponseAfterPost", response.data);
         })
         .catch(error => {
-          console.log(error);
+          console.log("axios error", error);
         });
     });
 };
@@ -53,7 +53,7 @@ const getFetch = async url => {
     const json = await response.json();
     console.log("fetch", json);
   } catch (error) {
-    console.log(error);
+    console.log("fetch error", error);
   }
 };
 
